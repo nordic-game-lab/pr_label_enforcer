@@ -1,40 +1,35 @@
 name: release
 
 on:
-  push:
-    tags:
-      - "v*" 
+  release:
+    types: [published]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  changelog:
+    runs-on: ubuntu-20.04
     steps:
-      - name: Checkout code
-        uses: actions/checkout@master
+      - name: "Generate release changelog"
+        uses: heinrichreimer/action-github-changelog-generator@v2.3
         with:
-          fetch-depth: 0
-
-      - name: Create Release for Tag
-        id: release_tag
-        uses: nordic-game-lab/release-tag@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: uplaod changelog
+        uses: shogo82148/actions-upload-release-asset@v1.7.0
         with:
-          tag_name: ${{ github.ref }}
-          draft: true
-          preset: angular # Use conventional-changelog preset
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: changelog
 
   docker:
-    needs: build
+    needs: changelog
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm run build
       -
         name: Checkout
         uses: actions/checkout@v3
+      - run: npm run build
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v3
