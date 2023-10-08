@@ -13,9 +13,9 @@
   "license": "GPL",
   "repository": {
     "type": "git",
-    "url": "git@github.com:fossapps/pr_label_enforcer.git"
+    "url": "git@github.com:nordic-game-lab/pr_label_enforcer.git"
   },
-  "homepage": "https://github.com/fossapps/pr_label_enforcer",
+  "homepage": "https://github.com/nordic-game-lab/pr_label_enforcer",
   "dependencies": {
     "dotenv": "^8.0.0",
     "hbs": "^4.0.4",
