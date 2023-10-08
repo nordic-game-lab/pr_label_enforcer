@@ -16,7 +16,7 @@ jobs:
 
       - name: Create Release for Tag
         id: release_tag
-        uses: nordic-game-lab/release-on-tag@v1
+        uses: nordic-game-lab/release-tag@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
