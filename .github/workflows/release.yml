@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    name: Create-Release
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,7 +20,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
+         tag_name: ${{ github.ref }}
 
   docker:
     needs: build
